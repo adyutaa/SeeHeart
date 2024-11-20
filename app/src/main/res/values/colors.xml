@@ -7,4 +7,24 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+
+        <!-- Light Theme Colors -->
+        <color name="primary">#B9E5E8</color> <!-- LightBlue1 -->
+        <color name="secondary">#7AB2D3</color> <!-- Blue1 -->
+        <color name="background">#DFF2EB</color> <!-- LightGreen -->
+        <color name="surface">#D4F6FF</color> <!-- LightCyan -->
+        <color name="gray">#A3A3A3</color>
+
+        <!-- On Colors -->
+        <color name="on_primary">#000000</color> <!-- Black -->
+        <color name="on_secondary">#FFFFFF</color> <!-- White -->
+        <color name="on_background">#000000</color> <!-- Black -->
+        <color name="on_surface">#000000</color> <!-- Black -->
+
+        <!-- Additional Colors (Optional) -->
+        <color name="blue_variant">#A2D2DF</color> <!-- LightBlue2 -->
+        <color name="dark_blue">#4A628A</color> <!-- Blue2 -->
+
+
 </resources>

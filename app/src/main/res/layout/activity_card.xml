@@ -8,22 +8,22 @@
     tools:context=".CardActivity">
 
     <!-- Title -->
-
-    <!-- Water Card -->
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
-        android:text="Pencatatan"
-        android:textColor="@android:color/black"
+        android:text="@string/title_pencatatan"
+        android:fontFamily="@"
+        android:textColor="@color/secondary"
         android:textSize="35dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.092"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Water Card -->
 
     <androidx.cardview.widget.CardView
         android:id="@+id/water_card"
@@ -47,15 +47,20 @@
                 android:layout_height="wrap_content"
                 android:text="Water"
                 android:textColor="@android:color/black"
-                android:textSize="16sp"
+                android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <ImageView
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/waterBarChart"
                 android:layout_width="match_parent"
-                android:layout_height="64dp"
+                android:layout_height="120dp"
                 android:layout_marginTop="8dp"
-                android:contentDescription="Water graph"
-                android:src="@drawable/ic_water_graph" />
+                android:background="@android:color/transparent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -89,28 +94,30 @@
                 android:id="@+id/circularProgressBar"
                 android:layout_width="150dp"
                 android:layout_height="153dp"
-                app:cpb_background_progressbar_color="#b6bbd8"
-                app:cpb_background_progressbar_width="10dp"
-                app:cpb_progress="50"
-                app:cpb_progressbar_color="#3f51b5"
-                app:cpb_progressbar_width="8dp"
+                app:cpb_background_progressbar_color="@color/primary"
+                app:cpb_background_progressbar_width="12dp"
+                app:cpb_progress="35"
+                app:cpb_progress_direction="to_right"
+                app:cpb_progressbar_color="@color/secondary"
+                app:cpb_progressbar_width="12dp"
+                app:cpb_round_border="true"
+                app:cpb_start_angle="135"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.476"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.328" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/totalSteps"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
+                android:layout_marginTop="20dp"
                 android:text="/6000 Steps"
-                android:textColor="#b6bbd8"
-                android:textSize="14sp"
+                android:textColor="@color/gray"
+                android:textSize="20sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.504"
+                app:layout_constraintHorizontal_bias="0.506"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/circularProgressBar" />
 
@@ -119,6 +126,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
+                android:textSize="20sp"
+                android:textColor="@color/secondary"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar"
                 app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
                 app:layout_constraintStart_toStartOf="@+id/circularProgressBar"
@@ -130,6 +140,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Steps Completed"
+                android:textStyle="bold"
+                android:textColor="@color/black"
                 android:textSize="13dp"
                 app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar"
                 app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
@@ -144,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:text="Steps"
-                android:textSize="16sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/circularProgressBar"
                 app:layout_constraintStart_toStartOf="parent"
@@ -166,7 +178,7 @@
         app:layout_constraintTop_toBottomOf="@+id/walk_card">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/linearLayoutCalories"
             android:layout_width="match_parent"
             android:layout_height="161dp">
 
@@ -184,32 +196,42 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/calorieTaken"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
                 android:text="0"
+                android:textStyle="bold"
                 android:textSize="25sp"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="63dp" />
+                android:textColor="@color/secondary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/KCol"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="72dp"
+                android:layout_marginTop="12dp"
                 android:text="/ Kcol"
+                android:textStyle="bold"
                 android:textSize="25sp"
-                app:layout_constraintStart_toEndOf="@+id/textView2"
-                tools:layout_editor_absoluteY="63dp" />
+                app:layout_constraintStart_toEndOf="@+id/calorieTaken"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/calorieTarget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:text="/ 2300 Kcol"
+                android:textColor="@color/gray"
                 android:textSize="15sp"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="111dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/KCol"
+                app:layout_constraintVertical_bias="0.382" />
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -267,31 +289,40 @@
                 android:id="@+id/tvSleepTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:text="00:00"
+                android:textStyle="bold"
+                android:textColor="@color/secondary"
                 android:textSize="25sp"
-                app:layout_constraintTop_toBottomOf="@+id/tvSleep"
-                tools:layout_editor_absoluteX="16dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSleep" />
 
             <TextView
                 android:id="@+id/tvHour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="36dp"
+                android:layout_marginStart="32dp"
+                android:fontFamily=""
                 android:text="hours"
+                android:textStyle="bold"
                 android:textSize="25sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tvSleepTime"
-                tools:layout_editor_absoluteY="60dp" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.472" />
 
             <TextView
                 android:id="@+id/tvSleepTarget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="/ 08:00"
+                android:textColor="@color/gray"
                 android:textSize="15sp"
-                app:layout_constraintTop_toBottomOf="@+id/tvSleepTime"
-                tools:layout_editor_absoluteX="16dp" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSleepTime" />
 
             <ImageView
                 android:id="@+id/imgSleep"
@@ -308,10 +339,13 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:text="Slightly better than Yesterday"
                 android:textSize="6sp"
-                tools:layout_editor_absoluteX="16dp"
-                tools:layout_editor_absoluteY="137dp" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvSleepTarget"
+                app:layout_constraintVertical_bias="0.391" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

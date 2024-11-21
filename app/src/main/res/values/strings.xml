@@ -18,6 +18,7 @@
         <string name="water_title">Water</string>
         <string name="water_amount">2.1 liters</string>
 
+
         <!-- Walk Card -->
         <string name="walk_steps">Steps</string>
         <string name="steps_completed">Steps Completed</string>

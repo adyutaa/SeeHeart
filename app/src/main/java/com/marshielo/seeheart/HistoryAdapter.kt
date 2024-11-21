@@ -5,8 +5,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.marshielo.seeheart.data.database.WaterIntakeEntity
 
-class HistoryAdapter(private val historyList: List<String>) :
+class HistoryAdapter(private val historyList: List<WaterIntakeEntity>) :
     RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>() {
 
     class HistoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -20,7 +21,8 @@ class HistoryAdapter(private val historyList: List<String>) :
     }
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
-        holder.tvHistoryItem.text = historyList[position]
+        val record = historyList[position]
+        holder.tvHistoryItem.text = "${record.time}: Drank ${record.intake} ml"
     }
 
     override fun getItemCount(): Int = historyList.size

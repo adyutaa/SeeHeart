@@ -1,25 +1,30 @@
 package com.marshielo.seeheart
 
-import android.content.Context
 import android.os.Bundle
 import android.widget.Button
-import android.widget.LinearLayout
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.marshielo.seeheart.data.database.WaterDatabase
+import com.marshielo.seeheart.data.database.WaterIntakeEntity
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
-import java.util.Date
-
+import java.util.*
 
 class WaterActivity : AppCompatActivity() {
 
     private var currentWaterIntake = 0
     private val dailyTarget = 3000
-    private val historyList = mutableListOf<String>() // Daftar riwayat
-    private lateinit var adapter: HistoryAdapter // Adapter untuk RecyclerView
+    private lateinit var database: WaterDatabase
+    private lateinit var adapter: HistoryAdapter
+    private val historyList = mutableListOf<WaterIntakeEntity>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,73 +34,87 @@ class WaterActivity : AppCompatActivity() {
         val tvProgress = findViewById<TextView>(R.id.tvWaterIntakeProgress)
         val btnDrinkWater = findViewById<Button>(R.id.btnDrinkWater)
         val rvHistory = findViewById<RecyclerView>(R.id.rvHistory)
-        val btnReset = findViewById<Button>(R.id.btnReset) // Menemukan tombol Reset
+        val btnReset = findViewById<Button>(R.id.btnReset)
 
-        // Atur RecyclerView
+        // Initialize RecyclerView and adapter
         adapter = HistoryAdapter(historyList)
         rvHistory.adapter = adapter
         rvHistory.layoutManager = LinearLayoutManager(this)
 
-        // Load data yang tersimpan
-        loadData()
+        // Initialize database
+        database = WaterDatabase.getDatabase(this)
 
-        // Atur max progress
+        // Load daily data from the database
+        loadDailyData()
+
+        // Set max progress for the circular progress bar
         circularProgressBar.progressMax = dailyTarget.toFloat()
 
         btnDrinkWater.setOnClickListener {
-            // Tambah riwayat dan update progress
-            currentWaterIntake += 300
+            // Add 300 ml to the current intake
+            val intake = 300
+            currentWaterIntake += intake
             if (currentWaterIntake > dailyTarget) currentWaterIntake = dailyTarget
 
-            // Mengonversi waktu ke format yang lebih mudah dibaca
+            // Get the current timestamp and format it
             val timestamp = System.currentTimeMillis()
-            val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
-            val formattedDate = sdf.format(Date(timestamp))
+            val sdfDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val sdfTime = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+            val date = sdfDate.format(Date(timestamp))
+            val time = sdfTime.format(Date(timestamp))
 
-            // Tambahkan riwayat
-            val entry = "Drank 300 ml at $formattedDate"
-            historyList.add(entry)
-            adapter.notifyDataSetChanged()
+            // Save the new intake to the database
+            lifecycleScope.launch {
+                database.waterDao().insertWaterIntake(
+                    WaterIntakeEntity(date = date, time = time, intake = intake)
+                )
+                loadDailyData() // Refresh history and progress
+            }
 
-            // Update UI
+            // Update the UI
             circularProgressBar.setProgressWithAnimation(currentWaterIntake.toFloat(), 1000)
             tvProgress.text = "$currentWaterIntake / $dailyTarget ml"
-
-            // Simpan data
-            saveData()
         }
 
         btnReset.setOnClickListener {
-            // Reset semua data
+            // Reset progress and clear the database for today
             currentWaterIntake = 0
             historyList.clear()
             adapter.notifyDataSetChanged()
 
-            // Update UI
             circularProgressBar.setProgressWithAnimation(0f, 1000)
             tvProgress.text = "0 / $dailyTarget ml"
 
-            // Hapus data yang tersimpan
-            val sharedPreferences = getSharedPreferences("WaterPrefs", Context.MODE_PRIVATE)
-            sharedPreferences.edit().clear().apply()
+            val sdfDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            val date = sdfDate.format(Date())
+
+            lifecycleScope.launch {
+                database.waterDao().deleteWaterIntakeByDate(date)
+            }
         }
     }
 
-    private fun saveData() {
-        val sharedPreferences = getSharedPreferences("WaterPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
+    private fun loadDailyData() {
+        // Load water intake for the current date from the database
+        val sdfDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+        val date = sdfDate.format(Date())
 
-        // Simpan intake air dan riwayat
-        editor.putInt("currentWaterIntake", currentWaterIntake)
-        editor.putStringSet("historyList", historyList.toSet())
-        editor.apply()
-    }
+        lifecycleScope.launch {
+            val intakeList = database.waterDao().getWaterIntakeByDate(date)
+            currentWaterIntake = intakeList.sumOf { it.intake }
 
-    private fun loadData() {
-        val sharedPreferences = getSharedPreferences("WaterPrefs", Context.MODE_PRIVATE)
-        currentWaterIntake = sharedPreferences.getInt("currentWaterIntake", 0)
-        historyList.clear()
-        historyList.addAll(sharedPreferences.getStringSet("historyList", emptySet())!!)
+            // Update history list
+            historyList.clear()
+            val newEntries: MutableList<String> = intakeList.map { intake ->
+                "Drank ${intake.intake} ml at ${intake.time}"
+            }.toMutableList() /// possible error cause
+            adapter.notifyDataSetChanged()
+
+            // Update progress
+            findViewById<CircularProgressBar>(R.id.circularWaterProgressBar)
+                .setProgressWithAnimation(currentWaterIntake.toFloat(), 1000)
+            findViewById<TextView>(R.id.tvWaterIntakeProgress).text =
+                "$currentWaterIntake / $dailyTarget ml"
+        }
     }
 }
-

@@ -103,12 +103,16 @@ class WaterActivity : AppCompatActivity() {
             val intakeList = database.waterDao().getWaterIntakeByDate(date)
             currentWaterIntake = intakeList.sumOf { it.intake }
 
-            // Update history list
+//            // Update history list
+//            historyList.clear()
+//            val newEntries: MutableList<String> = intakeList.map { intake ->
+//                "Drank ${intake.intake} ml at ${intake.time}"
+//            }.toMutableList() /// possible error cause
+//            adapter.notifyDataSetChanged()
+            // Update history list with proper data from the database
             historyList.clear()
-            val newEntries: MutableList<String> = intakeList.map { intake ->
-                "Drank ${intake.intake} ml at ${intake.time}"
-            }.toMutableList() /// possible error cause
-            adapter.notifyDataSetChanged()
+            historyList.addAll(intakeList) // Ensure the list is populated directly
+            adapter.notifyDataSetChanged() // Notify the adapter about the data changes
 
             // Update progress
             findViewById<CircularProgressBar>(R.id.circularWaterProgressBar)

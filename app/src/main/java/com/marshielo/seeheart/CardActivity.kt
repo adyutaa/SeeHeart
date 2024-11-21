@@ -2,29 +2,31 @@ package com.marshielo.seeheart
 
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
+import android.content.SharedPreferences
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 
-class CardActivity : AppCompatActivity(), SensorEventListener{
+class CardActivity : AppCompatActivity(), SensorEventListener {
 
-    var sensor: Sensor? = null
-    var sensorManager: SensorManager? = null
+    private var sensor: Sensor? = null
+    private var sensorManager: SensorManager? = null
     private var initialStepCount: Float = -1f // To track the first step count value
     private val ACTIVITY_RECOGNITION_REQUEST_CODE = 100
 
+    // Variabel untuk Water Intake
+    private lateinit var waterCircularProgressBar: CircularProgressBar
+    private lateinit var waterProgressValue: TextView
+    private val dailyWaterTarget = 3000 // Target harian dalam ml
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,11 +35,16 @@ class CardActivity : AppCompatActivity(), SensorEventListener{
 
         supportActionBar?.hide()
 
+        // Inisialisasi Sensor Langkah
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
         // Cari CardView dengan id water_card
         val waterCard = findViewById<CardView>(R.id.water_card)
+
+        // Cari CircularProgressBar dan TextView di dalam water_card
+        waterCircularProgressBar = waterCard.findViewById(R.id.waterCircularProgressBar)
+        waterProgressValue = waterCard.findViewById(R.id.waterProgressValue)
 
         // Set onClickListener pada water_card
         waterCard.setOnClickListener {
@@ -45,53 +52,29 @@ class CardActivity : AppCompatActivity(), SensorEventListener{
             val intent = Intent(this, WaterActivity::class.java)
             startActivity(intent)
         }
-//        val bmi = findViewById<ImageView>(R.id.imageBMI)
-//
-//        bmi.setOnClickListener{
-//            val i= Intent(this, BMIActivity::class.java)
-//            startActivity(i)
-//        }
+
+        // Inisialisasi tampilan Water Intake
+        initializeWaterIntake()
     }
 
-    private fun requestActivityRecognitionPermission() {
-        if (checkSelfPermission(android.Manifest.permission.ACTIVITY_RECOGNITION)
-            != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(
-                arrayOf(android.Manifest.permission.ACTIVITY_RECOGNITION),
-                ACTIVITY_RECOGNITION_REQUEST_CODE
-            )
-        } else {
-            initializeStepCounter()
-        }
-    }
+    private fun initializeWaterIntake() {
+        // Set max progress untuk CircularProgressBar
+        waterCircularProgressBar.progressMax = dailyWaterTarget.toFloat()
 
-    private fun saveInitialStepCount(value: Float) {
-        val sharedPreferences = getSharedPreferences("StepCounterPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putFloat("initialStepCount", value)
-        editor.apply()
-    }
-
-    private fun getSavedInitialStepCount(): Float {
-        val sharedPreferences = getSharedPreferences("StepCounterPrefs", Context.MODE_PRIVATE)
-        return sharedPreferences.getFloat("initialStepCount", -1f)
-    }
-
-    private fun initializeStepCounter() {
-        if (sensor == null) {
-            val sensorCardText = findViewById<TextView>(R.id.stepsTaken)
-            sensorCardText.text = "Step Counter Sensor Not Available"
-        }
+        // Update tampilan awal
+        updateWaterProgress()
     }
 
     override fun onResume() {
         super.onResume()
-        if(sensor == null) {
-            Toast.makeText(this,"Sensor not Found", Toast.LENGTH_SHORT).show()
+        if (sensor == null) {
+            Toast.makeText(this, "Sensor tidak ditemukan", Toast.LENGTH_SHORT).show()
         } else {
-            //   sensorManager?.registerListener(this,sensor, SensorManager.SENSOR_DELAY_NORMAL)
             sensorManager?.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL)
         }
+
+        // Update Water Progress setiap kali activity resume
+        updateWaterProgress()
     }
 
     override fun onPause() {
@@ -116,7 +99,44 @@ class CardActivity : AppCompatActivity(), SensorEventListener{
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        // Example: Log sensor accuracy changes
+        // Log perubahan akurasi sensor
         Log.d("PedoSensor", "Sensor accuracy changed: $accuracy")
     }
+
+    // Fungsi untuk menyimpan initial step count
+    private fun saveInitialStepCount(value: Float) {
+        val sharedPreferences = getSharedPreferences("StepCounterPrefs", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+        editor.putFloat("initialStepCount", value)
+        editor.apply()
+    }
+
+    // Fungsi untuk mengambil initial step count
+    private fun getSavedInitialStepCount(): Float {
+        val sharedPreferences = getSharedPreferences("StepCounterPrefs", Context.MODE_PRIVATE)
+        return sharedPreferences.getFloat("initialStepCount", -1f)
+    }
+
+    // Fungsi untuk memperbarui tampilan Water Progress
+    private fun updateWaterProgress() {
+        val sharedPreferences: SharedPreferences = getSharedPreferences("WaterPrefs", Context.MODE_PRIVATE)
+        val currentWaterIntake = sharedPreferences.getInt("currentWaterIntake", 0)
+
+        // Hitung persentase
+        val percentage = if (dailyWaterTarget > 0) {
+            (currentWaterIntake.toFloat() / dailyWaterTarget) * 100
+        } else {
+            0f
+        }
+
+        // Batasi persentase hingga 100%
+        val displayPercentage = if (percentage > 100f) 100f else percentage
+
+        // Update CircularProgressBar
+        waterCircularProgressBar.setProgressWithAnimation(currentWaterIntake.toFloat(), 1000)
+
+        // Update TextView
+        waterProgressValue.text = "${displayPercentage.toInt()}%"
+    }
+
 }

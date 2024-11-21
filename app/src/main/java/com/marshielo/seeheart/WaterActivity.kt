@@ -1,5 +1,6 @@
 package com.marshielo.seeheart
 
+import android.content.Context
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
@@ -74,6 +75,13 @@ class WaterActivity : AppCompatActivity() {
             // Update the UI
             circularProgressBar.setProgressWithAnimation(currentWaterIntake.toFloat(), 1000)
             tvProgress.text = "$currentWaterIntake / $dailyTarget ml"
+
+            // Simpan total asupan air ke SharedPreferences
+            val sharedPreferences = getSharedPreferences("WaterPrefs", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putInt("currentWaterIntake", currentWaterIntake)
+            editor.apply()
+
         }
 
         btnReset.setOnClickListener {
@@ -87,6 +95,13 @@ class WaterActivity : AppCompatActivity() {
 
             val sdfDate = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
             val date = sdfDate.format(Date())
+
+            // Reset total asupan air di SharedPreferences
+            val sharedPreferences = getSharedPreferences("WaterPrefs", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.putInt("currentWaterIntake", currentWaterIntake)
+            editor.apply()
+
 
             lifecycleScope.launch {
                 database.waterDao().deleteWaterIntakeByDate(date)

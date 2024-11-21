@@ -49,6 +49,9 @@ dependencies {
     implementation("androidx.compose.material3:material3:1.3.1")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("com.mikhaellopez:circularprogressbar:3.1.0")
+    implementation("com.google.code.gson:gson:2.10")
+    implementation ("com.github.lzyzsd:circleprogress:1.2.1") // Jika Anda menggunakan CircularProgressBar
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

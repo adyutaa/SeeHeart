@@ -112,7 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="/6000 Steps"
+                android:text="/5000 Steps"
                 android:textColor="@color/gray"
                 android:textSize="20sp"
                 android:textStyle="bold"

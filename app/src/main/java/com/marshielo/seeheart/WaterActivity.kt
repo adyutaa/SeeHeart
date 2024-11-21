@@ -82,6 +82,7 @@ class WaterActivity : AppCompatActivity() {
             editor.putInt("currentWaterIntake", currentWaterIntake)
             editor.apply()
 
+
         }
 
         btnReset.setOnClickListener {
@@ -99,7 +100,7 @@ class WaterActivity : AppCompatActivity() {
             // Reset total asupan air di SharedPreferences
             val sharedPreferences = getSharedPreferences("WaterPrefs", Context.MODE_PRIVATE)
             val editor = sharedPreferences.edit()
-            editor.putInt("currentWaterIntake", currentWaterIntake)
+            editor.putInt("currentWaterIntake", 0) // Reset to 0
             editor.apply()
 
 

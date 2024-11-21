@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffff"
     tools:context=".CardActivity">
 
     <!-- Title -->
@@ -39,39 +40,53 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="16dp">
+            android:layout_height="match_parent">
+
+            <!-- Background Vector (Wave) -->
+            <ImageView
+                android:id="@+id/imgWaterWave"
+                android:layout_width="0dp"
+                android:layout_height="80dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/vector1"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!-- Foreground Wave Vector -->
 
             <!-- Judul -->
-            <TextView
-                android:id="@+id/tvWaterTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Water"
-                android:textColor="@android:color/black"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <!-- CircularProgressBar -->
+
+            <ImageView
+                android:id="@+id/imgWaterWave2"
+                android:layout_width="0dp"
+                android:layout_height="120dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/vector2"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent" />
+
             <com.mikhaellopez.circularprogressbar.CircularProgressBar
                 android:id="@+id/waterCircularProgressBar"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_marginTop="16dp"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_marginTop="12dp"
                 app:cpb_background_progressbar_color="@color/primary"
                 app:cpb_background_progressbar_width="8dp"
                 app:cpb_progress="0"
-                app:cpb_progress_max="100"
                 app:cpb_progress_direction="to_right"
+                app:cpb_progress_max="100"
                 app:cpb_progressbar_color="@color/secondary"
                 app:cpb_progressbar_width="12dp"
                 app:cpb_round_border="true"
                 app:cpb_start_angle="0"
-                app:layout_constraintTop_toBottomOf="@+id/tvWaterTitle"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/tvWaterTitle" />
 
             <!-- Text di Tengah CircularProgressBar -->
             <TextView
@@ -79,57 +94,47 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0%"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 android:textColor="@color/secondary"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/waterCircularProgressBar"
                 app:layout_constraintEnd_toEndOf="@+id/waterCircularProgressBar"
                 app:layout_constraintStart_toStartOf="@+id/waterCircularProgressBar"
                 app:layout_constraintTop_toTopOf="@+id/waterCircularProgressBar" />
 
-            <!-- Text: 2.1 liters -->
+
+            <TextView
+                android:id="@+id/tvWaterTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="Water"
+                android:textColor="@android:color/black"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <TextView
                 android:id="@+id/tvWaterAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="24dp"
+                android:shadowColor="#000000"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="2"
                 android:text="2.1 liters"
-                android:textColor="@android:color/holo_blue_light"
-                android:textSize="18sp"
-                app:layout_constraintTop_toBottomOf="@+id/waterCircularProgressBar"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!-- Background Vector (Wave) -->
-            <ImageView
-                android:id="@+id/imgWaterWave"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="8dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/vector1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvWaterAmount"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
-
-            <!-- Foreground Wave Vector -->
-            <ImageView
-                android:id="@+id/imgWaterWave2"
-                android:layout_width="match_parent"
-                android:layout_height="100dp"
-                android:layout_marginTop="-24dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/vector2"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvWaterAmount"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/waterCircularProgressBar" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
-
-
 
 
     <!-- Walk Card -->
@@ -152,8 +157,8 @@
 
             <com.mikhaellopez.circularprogressbar.CircularProgressBar
                 android:id="@+id/circularProgressBar"
-                android:layout_width="150dp"
-                android:layout_height="153dp"
+                android:layout_width="136dp"
+                android:layout_height="136dp"
                 app:cpb_background_progressbar_color="@color/primary"
                 app:cpb_background_progressbar_width="12dp"
                 app:cpb_progress="35"
@@ -165,7 +170,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/tvWalk"
+                app:layout_constraintVertical_bias="0.108" />
 
             <TextView
                 android:id="@+id/totalSteps"
@@ -199,10 +205,11 @@
                 android:id="@+id/stepsCompleted"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Steps Completed"
+                android:text="Steps\nCompleted"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="13dp"
+                android:gravity="center"
                 app:layout_constraintBottom_toBottomOf="@+id/circularProgressBar"
                 app:layout_constraintEnd_toEndOf="@+id/circularProgressBar"
                 app:layout_constraintHorizontal_bias="0.521"
@@ -214,14 +221,13 @@
                 android:id="@+id/tvWalk"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:text="Steps"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/circularProgressBar"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.432" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 

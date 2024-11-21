@@ -119,6 +119,7 @@ class CardActivity : AppCompatActivity(), SensorEventListener {
 
     // Fungsi untuk memperbarui tampilan Water Progress
     private fun updateWaterProgress() {
+        // Ambil data asupan air dari SharedPreferences
         val sharedPreferences: SharedPreferences = getSharedPreferences("WaterPrefs", Context.MODE_PRIVATE)
         val currentWaterIntake = sharedPreferences.getInt("currentWaterIntake", 0)
 
@@ -135,8 +136,13 @@ class CardActivity : AppCompatActivity(), SensorEventListener {
         // Update CircularProgressBar
         waterCircularProgressBar.setProgressWithAnimation(currentWaterIntake.toFloat(), 1000)
 
-        // Update TextView
+        // Update TextView untuk persen
         waterProgressValue.text = "${displayPercentage.toInt()}%"
+
+        // Update TextView untuk jumlah air (dalam ml)
+        val waterAmountTextView = findViewById<TextView>(R.id.tvWaterAmount)
+        waterAmountTextView.text = "$currentWaterIntake ml"
     }
+
 
 }

@@ -9,12 +9,14 @@ import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
+import androidx.core.content.ContextCompat
 
 class CardActivity : AppCompatActivity(), SensorEventListener {
 
@@ -41,6 +43,10 @@ class CardActivity : AppCompatActivity(), SensorEventListener {
 
         // Cari CardView dengan id water_card
         val waterCard = findViewById<CardView>(R.id.water_card)
+        // Set active state for CardActivity
+        val navHome = findViewById<ImageView>(R.id.navHome)
+        val navReminder = findViewById<ImageView>(R.id.navReminder)
+        val navNotes = findViewById<ImageView>(R.id.navNotes)
 
         // Cari CircularProgressBar dan TextView di dalam water_card
         waterCircularProgressBar = waterCard.findViewById(R.id.waterCircularProgressBar)
@@ -55,7 +61,28 @@ class CardActivity : AppCompatActivity(), SensorEventListener {
 
         // Inisialisasi tampilan Water Intake
         initializeWaterIntake()
+
+        // Navigasi ke HomeActivity
+        navHome.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0) // Hilangkan animasi transisi
+        }
+
+        // Navigasi ke ReminderActivity
+        navReminder.setOnClickListener {
+            val intent = Intent(this, ReminderActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(0, 0) // Hilangkan animasi transisi
+        }
+
+        // Navigasi ke Notes (CardActivity, tetap di sini)
+        navNotes.setOnClickListener {
+            Toast.makeText(this, "You're already here!", Toast.LENGTH_SHORT).show()
+        }
     }
+
+
 
     private fun initializeWaterIntake() {
         // Set max progress untuk CircularProgressBar

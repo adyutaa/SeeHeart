@@ -13,6 +13,7 @@
 
         <!-- Title -->
         <string name="title_pencatatan">Pencatatan</string>
+        <string name="title_reminder">Reminder</string>
 
         <!-- Water Card -->
         <string name="water_title">Water</string>

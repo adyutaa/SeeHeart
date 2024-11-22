@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="16dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Content of HomeActivity -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome to Home Activity"
+        android:textSize="24sp"
+        android:layout_gravity="center_horizontal" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/navBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/nav_bar_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/navHome"
+            android:layout_width="86dp"
+            android:layout_height="59dp"
+            android:layout_marginStart="16dp"
+            android:contentDescription="Home Icon"
+            android:src="@drawable/home1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.545" />
+
+        <ImageView
+            android:id="@+id/navReminder"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="Reminder Icon"
+            android:src="@drawable/reminder"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/navNotes"
+            app:layout_constraintHorizontal_bias="0.397"
+            app:layout_constraintStart_toEndOf="@id/navHome"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/navNotes"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="32dp"
+            android:contentDescription="Notes Icon"
+            android:src="@drawable/note"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>
+
+

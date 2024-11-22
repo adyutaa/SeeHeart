@@ -76,8 +76,8 @@
                 android:layout_height="140dp"
                 android:layout_marginTop="12dp"
                 app:cpb_background_progressbar_color="@color/primary"
-                app:cpb_background_progressbar_width="8dp"
-                app:cpb_progress="0"
+                app:cpb_background_progressbar_width="12dp"
+                app:cpb_progress="35"
                 app:cpb_progress_direction="to_right"
                 app:cpb_progress_max="100"
                 app:cpb_progressbar_color="@color/secondary"
@@ -423,4 +423,54 @@
 
     </androidx.cardview.widget.CardView>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/navBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/nav_bar_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <ImageView
+            android:id="@+id/navHome"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="32dp"
+            android:contentDescription="Home Icon"
+            android:src="@drawable/home"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/navReminder"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:contentDescription="Reminder Icon"
+            android:src="@drawable/reminder"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/navNotes"
+            app:layout_constraintHorizontal_bias="0.587"
+            app:layout_constraintStart_toEndOf="@id/navHome"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.578" />
+
+        <ImageView
+            android:id="@+id/navNotes"
+            android:layout_width="86dp"
+            android:layout_height="59dp"
+            android:layout_marginEnd="16dp"
+            android:contentDescription="Notes Icon"
+            android:src="@drawable/cardactivity1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+

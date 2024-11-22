@@ -30,7 +30,7 @@
         <!-- ReminderActivity -->
         <activity android:name=".ReminderActivity" />
 
-<!--        <activity android:name=".AddReminderActivity" />-->
+       <activity android:name=".AddReminderActivity" />
 
 
         <activity

@@ -1,35 +1,45 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="16dp"
-    android:padding="8dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:padding="10dp">
 
-    <!-- Reminder Icon -->
+    <!-- Icon reminder -->
     <ImageView
-        android:id="@+id/imgReminderIcon"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:src="@drawable/reminderwake"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:id="@+id/ivReminderIcon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center_vertical"
+        android:src="@drawable/ic_add"/>
 
-    <!-- Reminder Title -->
-    <TextView
-        android:id="@+id/tvReminderTitle"
-        android:layout_width="wrap_content"
+    <!-- Text reminder -->
+    <LinearLayout
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Bangun Pagi"
-        android:textSize="18sp"
-        android:textColor="@color/primary"
-        app:layout_constraintStart_toEndOf="@id/imgReminderIcon"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginStart="16dp" />
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:paddingStart="10dp">
 
-    <!-- Completion Button -->
+        <!-- Task Title (bold black color) -->
+        <TextView
+            android:id="@+id/tvReminderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:text="Task Name"/>
+
+<!--        &lt;!&ndash; Time and Date (light gray color) &ndash;&gt;-->
+<!--        <TextView-->
+<!--            android:id="@+id/tvReminderDetails"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:textColor="#B0B0B0"-->
+<!--            android:text="Date and Time"/>-->
+    </LinearLayout>
+
+    <!-- Completion Button (ImageButton) -->
     <ImageButton
         android:id="@+id/btnMarkComplete"
         android:layout_width="36dp"
@@ -37,8 +47,9 @@
         android:src="@drawable/ic_check"
         android:background="@null"
         android:contentDescription="Mark Complete"
+        android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginEnd="16dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</LinearLayout>

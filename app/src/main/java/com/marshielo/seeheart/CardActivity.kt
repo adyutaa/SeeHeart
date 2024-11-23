@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import androidx.core.content.ContextCompat
+import com.marshielo.seeheart.ui.AddFoodActivity
 
 class CardActivity : AppCompatActivity(), SensorEventListener {
 
@@ -43,10 +44,12 @@ class CardActivity : AppCompatActivity(), SensorEventListener {
 
         // Cari CardView dengan id water_card
         val waterCard = findViewById<CardView>(R.id.water_card)
+        val calorieCard = findViewById<CardView>(R.id.calories_card)
         // Set active state for CardActivity
         val navHome = findViewById<ImageView>(R.id.navHome)
         val navReminder = findViewById<ImageView>(R.id.navReminder)
         val navNotes = findViewById<ImageView>(R.id.navNotes)
+
 
         // Cari CircularProgressBar dan TextView di dalam water_card
         waterCircularProgressBar = waterCard.findViewById(R.id.waterCircularProgressBar)
@@ -56,6 +59,12 @@ class CardActivity : AppCompatActivity(), SensorEventListener {
         waterCard.setOnClickListener {
             // Pindah ke WaterActivity
             val intent = Intent(this, WaterActivity::class.java)
+            startActivity(intent)
+        }
+
+        // navigate ke CalorieActivity
+        calorieCard.setOnClickListener{
+            val intent = Intent(this, AddFoodActivity::class.java)
             startActivity(intent)
         }
 
@@ -75,6 +84,8 @@ class CardActivity : AppCompatActivity(), SensorEventListener {
             startActivity(intent)
             overridePendingTransition(0, 0) // Hilangkan animasi transisi
         }
+
+
 
         // Navigasi ke Notes (CardActivity, tetap di sini)
         navNotes.setOnClickListener {

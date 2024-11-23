@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.marshielo.seeheart.data.database.WaterDatabase
+import com.marshielo.seeheart.data.database.AppDatabase
 import com.marshielo.seeheart.data.database.WaterIntakeEntity
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import kotlinx.coroutines.CoroutineScope
@@ -22,7 +22,7 @@ class WaterActivity : AppCompatActivity() {
 
     private var currentWaterIntake = 0
     private val dailyTarget = 3000
-    private lateinit var database: WaterDatabase
+    private lateinit var database: AppDatabase
     private lateinit var adapter: HistoryAdapter
     private val historyList = mutableListOf<WaterIntakeEntity>()
 
@@ -43,13 +43,13 @@ class WaterActivity : AppCompatActivity() {
         rvHistory.layoutManager = LinearLayoutManager(this)
 
         // Initialize database
-        database = WaterDatabase.getDatabase(this)
+        database = AppDatabase.getDatabase(this)
 
         // Load daily data from the database
         loadDailyData()
 
         // Set max progress for the circular progress bar
-        circularProgressBar.progressMax = dailyTarget.toFloat()
+        circularProgressBar.progressMax = dailyTarget. toFloat()
 
         btnDrinkWater.setOnClickListener {
             // Add 300 ml to the current intake

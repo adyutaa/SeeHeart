@@ -1,41 +1,39 @@
+<resources>
+
+    <string name="app_name">SeeHeart</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <!-- General -->
+
+    <!-- Title -->
+    <string name="title_pencatatan">Pencatatan</string>
+    <string name="title_reminder">Reminder</string>
+
+    <!-- Water Card -->
+    <string name="water_title">Water</string>
+    <string name="water_amount">2.1 liters</string>
 
 
-    <resources>
+    <!-- Walk Card -->
+    <string name="walk_steps">Steps</string>
+    <string name="steps_completed">Steps Completed</string>
+    <string name="steps_taken">0</string>
+    <string name="total_steps">/6000 Steps</string>
 
-        <string name="app_name">SeeHeart</string>
+    <!-- Calories Card -->
+    <string name="calories_title">Calories</string>
+    <string name="calories_taken">0</string>
+    <string name="calories_target">/ 2300 Kcal</string>
 
-        <!-- Strings used for fragments for navigation -->
-        <string name="first_fragment_label">First Fragment</string>
-        <string name="second_fragment_label">Second Fragment</string>
-        <string name="next">Next</string>
-        <string name="previous">Previous</string>
-        <!-- General -->
-
-        <!-- Title -->
-        <string name="title_pencatatan">Pencatatan</string>
-        <string name="title_reminder">Reminder</string>
-
-        <!-- Water Card -->
-        <string name="water_title">Water</string>
-        <string name="water_amount">2.1 liters</string>
-
-
-        <!-- Walk Card -->
-        <string name="walk_steps">Steps</string>
-        <string name="steps_completed">Steps Completed</string>
-        <string name="steps_taken">0</string>
-        <string name="total_steps">/6000 Steps</string>
-
-        <!-- Calories Card -->
-        <string name="calories_title">Calories</string>
-        <string name="calories_taken">0</string>
-        <string name="calories_target">/ 2300 Kcal</string>
-
-        <!-- Sleep Card -->
-        <string name="sleep_title">Sleep</string>
-        <string name="sleep_time">00:00</string>
-        <string name="sleep_target">/ 08:00</string>
-        <string name="sleep_hours">hours</string>
-        <string name="sleep_comparison">Slightly better than Yesterday</string>
-    </resources>
+    <!-- Sleep Card -->
+    <string name="sleep_title">Sleep</string>
+    <string name="sleep_time">00:00</string>
+    <string name="sleep_target">/ 08:00</string>
+    <string name="sleep_hours">hours</string>
+    <string name="sleep_comparison">Slightly better than Yesterday</string>
+</resources>
 

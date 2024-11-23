@@ -39,19 +39,21 @@ android {
         compose = true
         viewBinding = true
     }
+
 }
 
 dependencies {
     val room_version = "2.6.1"
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0") // For JSON parsing
     implementation("androidx.room:room-runtime:$room_version")
-    ksp("androidx.room:room-compiler:$room_version") // Use KSP for Room
+    ksp("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
     implementation("androidx.compose.material3:material3:1.3.1")
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
     implementation("com.mikhaellopez:circularprogressbar:3.1.0")
-    implementation("com.google.code.gson:gson:2.10")
-    implementation ("com.github.lzyzsd:circleprogress:1.2.1") // Jika Anda menggunakan CircularProgressBar
-
+    implementation("com.github.mancj:MaterialSearchBar:0.8.5")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

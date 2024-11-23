@@ -26,5 +26,9 @@
         <color name="blue_variant">#A2D2DF</color> <!-- LightBlue2 -->
         <color name="dark_blue">#4A628A</color> <!-- Blue2 -->
 
+        <color name="colorButtonNormal">#3F51B5</color> <!-- Warna default -->
+        <color name="colorButtonPressed">#303F9F</color> <!-- Warna saat ditekan -->
+
+
 
 </resources>

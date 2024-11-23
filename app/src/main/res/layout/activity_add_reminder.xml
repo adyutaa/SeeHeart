@@ -4,133 +4,136 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
+    android:background="@drawable/backgroundaddreminder"
     tools:context=".AddReminderActivity">
 
-    <!-- Task Title Radio Group -->
+    <!-- Title -->
+
+    <!-- CardView for content -->
+
     <TextView
-        android:id="@+id/tvTaskTitleLabel"
+        android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Task Title"
-        android:textSize="16sp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <RadioGroup
-        android:id="@+id/rgTaskTitle"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTaskTitleLabel"
-        android:orientation="vertical">
-
-        <RadioButton
-            android:id="@+id/rbBangun"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Bangun"
-            android:padding="8dp"/>
-
-        <RadioButton
-            android:id="@+id/rbMinum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Minum"
-            android:padding="8dp"/>
-
-        <RadioButton
-            android:id="@+id/rbBeraktivitas"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Beraktivitas"
-            android:padding="8dp"/>
-
-        <RadioButton
-            android:id="@+id/rbTidur"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tidur"
-            android:padding="8dp"/>
-    </RadioGroup>
-
-    <!-- Reminder Date -->
-    <TextView
-        android:id="@+id/tvReminderDateLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reminder Date"
-        android:textSize="16sp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintTop_toBottomOf="@id/rgTaskTitle"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/etReminderDate"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Select Date"
-        android:focusable="false"
-        android:backgroundTint="@color/primary"
-        android:padding="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvReminderDateLabel" />
-
-    <!-- Reminder Time -->
-    <TextView
-        android:id="@+id/tvReminderTimeLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reminder Time"
-        android:textSize="16sp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintTop_toBottomOf="@id/etReminderDate"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <EditText
-        android:id="@+id/etReminderTime"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Select Time"
-        android:focusable="false"
-        android:backgroundTint="@color/primary"
-        android:padding="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvReminderTimeLabel" />
-
-    <!-- Repeat Option -->
-    <TextView
-        android:id="@+id/tvRepeatLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Repeat"
-        android:textSize="16sp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintTop_toBottomOf="@id/etReminderTime"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Switch
-        android:id="@+id/switchRepeat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvRepeatLabel" />
-
-    <!-- Save Button -->
-    <Button
-        android:id="@+id/btnSaveReminder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:layout_marginTop="24dp"
-        android:backgroundTint="@color/secondary"
+        android:layout_marginTop="80dp"
+        android:text="Add Reminders"
         android:textColor="@android:color/white"
-        app:layout_constraintTop_toBottomOf="@id/switchRepeat"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:backgroundTint="@android:color/white"
+        app:cardCornerRadius="16dp"
+        app:layout_constraintTop_toBottomOf="@id/tvTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="658dp"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- Task Title -->
+            <TextView
+                android:id="@+id/tvTaskTitleLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Task Title"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RadioGroup
+                android:id="@+id/rgTaskTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:orientation="vertical">
+
+                <RadioButton
+                    android:id="@+id/rbBangun"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bangun" />
+
+
+                <RadioButton
+                    android:id="@+id/rbMinum"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Minum" />
+
+                <RadioButton
+                    android:id="@+id/rbBeraktivitas"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Beraktivitas" />
+
+                <RadioButton
+                    android:id="@+id/rbTidur"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tidur" />
+            </RadioGroup>
+
+            <!-- Reminder Date -->
+            <TextView
+                android:id="@+id/tvReminderDateLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Reminder Date"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etReminderDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/primary"
+                android:focusable="false"
+                android:hint="Select Date"
+                android:padding="8dp" />
+
+            <!-- Reminder Time -->
+            <TextView
+                android:id="@+id/tvReminderTimeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Reminder Time"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etReminderTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="@color/primary"
+                android:focusable="false"
+                android:hint="Select Time"
+                android:padding="8dp" />
+
+            <!-- Save Button -->
+            <Button
+                android:id="@+id/btnSaveReminder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/secondary"
+                android:text="Save"
+                android:textColor="@android:color/white" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

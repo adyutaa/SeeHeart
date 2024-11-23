@@ -1,7 +1,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:padding="10dp">
 
@@ -11,7 +10,7 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center_vertical"
-        android:src="@drawable/ic_add"/>
+        android:src="@drawable/ic_add" />
 
     <!-- Text reminder -->
     <LinearLayout
@@ -21,35 +20,40 @@
         android:orientation="vertical"
         android:paddingStart="10dp">
 
-        <!-- Task Title (bold black color) -->
+        <!-- Task Title -->
         <TextView
             android:id="@+id/tvReminderTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:textStyle="bold"
-            android:text="Task Name"/>
-
-<!--        &lt;!&ndash; Time and Date (light gray color) &ndash;&gt;-->
-<!--        <TextView-->
-<!--            android:id="@+id/tvReminderDetails"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:textColor="#B0B0B0"-->
-<!--            android:text="Date and Time"/>-->
+            android:text="Task Name" />
     </LinearLayout>
 
-    <!-- Completion Button (ImageButton) -->
-    <ImageButton
-        android:id="@+id/btnMarkComplete"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:src="@drawable/ic_check"
-        android:background="@null"
-        android:contentDescription="Mark Complete"
-        android:layout_marginEnd="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+    <!-- Completion Switch -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
 
+        <Switch
+            android:id="@+id/switchMarkComplete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOff=""
+            android:textOn=""
+            android:thumbTint="@color/primary"
+            android:trackTint="@color/secondary" />
+
+        <TextView
+            android:id="@+id/tvCompletedStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="Completed"
+            android:textColor="@android:color/black"
+            android:textSize="14sp"
+            android:visibility="gone" />
+    </LinearLayout>
 </LinearLayout>

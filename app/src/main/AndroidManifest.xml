@@ -2,15 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <uses-feature
-        android:name="android.hardware.sensor.stepdetector"
-        android:required="true" />
-    <uses-feature
-        android:name="android.hardware.sensor.accelerometer"
-        android:required="true" />
+    <uses-feature android:name="android.hardware.sensor.stepdetector" android:required="true">
 
-    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    </uses-feature>
+
+    <uses-feature android:name="android.hardware.sensor.accelerometer" android:required="true"></uses-feature>
+
+    <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"></uses-permission>
+
 
 
     <application
@@ -23,16 +22,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SeeHeart"
         tools:targetApi="31">
-        <activity
-            android:name=".ui.AddFoodActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.CalorieActivity"
-            android:exported="false" />
-        <activity android:name=".WaterActivity" /> <!-- HomeActivity -->
-        <activity android:name=".HomeActivity" /> <!-- ReminderActivity -->
+        <activity android:name=".WaterActivity" />
+
+        <!-- HomeActivity -->
+        <activity android:name=".HomeActivity" />
+
+        <!-- ReminderActivity -->
         <activity android:name=".ReminderActivity" />
-        <activity android:name=".AddReminderActivity" />
+
+       <activity android:name=".AddReminderActivity" />
+
+
         <activity
             android:name=".BMIActivity"
             android:exported="false"

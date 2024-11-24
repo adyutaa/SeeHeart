@@ -17,5 +17,3 @@ data class ReminderItem(
         return description.hashCode()
     }
 }
-
-

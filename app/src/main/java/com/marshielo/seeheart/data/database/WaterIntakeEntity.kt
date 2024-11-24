@@ -11,3 +11,8 @@ data class WaterIntakeEntity(
     val time: String, // "HH:mm:ss"
     val intake: Int
 )
+
+data class WeeklyIntakeEntity(
+    val date: String,
+    val totalIntake: Int
+)

@@ -16,4 +16,8 @@ interface WaterDao {
     @Query("DELETE FROM water_intake WHERE date = :date")
     suspend fun deleteWaterIntakeByDate(date: String)
 
+    @Query("SELECT date, SUM(intake) as totalIntake FROM water_intake GROUP BY date ORDER BY date DESC LIMIT 7")
+    suspend fun getWeeklyIntake(): List<WeeklyIntakeEntity>
+
+
 }

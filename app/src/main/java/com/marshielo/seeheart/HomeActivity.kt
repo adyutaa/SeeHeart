@@ -1,7 +1,10 @@
 package com.marshielo.seeheart
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.github.mikephil.charting.charts.LineChart
@@ -29,6 +32,43 @@ class HomeActivity : AppCompatActivity() {
 
         // Load weekly data and display it on the LineChart
         loadWeeklyData()
+
+        // Initialize ImageViews
+        val tipsImage = findViewById<ImageView>(R.id.tipsImage)
+        val tipsImage2 = findViewById<ImageView>(R.id.tipsImage2)
+        val navNotes = findViewById<ImageView>(R.id.navNotes)
+        val navReminder = findViewById<ImageView>(R.id.navReminder)
+
+        // Set onClickListener for TipsImage
+        tipsImage.setOnClickListener {
+            val url = "https://www.beautynesia.id/wellness/sering-lupa-minum-air-putih-ini-5-cara-agar-kamu-tetap-terhidrasi-sepanjang-hari/b-283718" // Ganti dengan URL artikel 1
+            openBrowser(url)
+        }
+
+        // Set onClickListener for TipsImage2
+        tipsImage2.setOnClickListener {
+            val url = "https://news.schoolmedia.id/artikel/6-Cara-Mengatasi-Kebiasaan-Malas-Minum-Air-Putih-306" // Ganti dengan URL artikel 2
+            openBrowser(url)
+        }
+
+        // Set onClickListener for navNotes
+        navNotes.setOnClickListener {
+            val intent = Intent(this, CardActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Set onClickListener for navReminder
+        navReminder.setOnClickListener {
+            val intent = Intent(this, ReminderActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    // Function to open browser
+    private fun openBrowser(url: String) {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse(url)
+        startActivity(intent)
     }
 
     private fun loadWeeklyData() {

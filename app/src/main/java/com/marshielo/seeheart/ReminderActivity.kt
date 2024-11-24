@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,8 +37,6 @@ class ReminderActivity : AppCompatActivity() {
         recyclerView.adapter = reminderAdapter
         recyclerView.layoutManager = LinearLayoutManager(this)
 
-
-
         // Load data dari SharedPreferences
         loadReminders()
 
@@ -57,6 +56,24 @@ class ReminderActivity : AppCompatActivity() {
         findViewById<FloatingActionButton>(R.id.fabAddReminder).setOnClickListener {
             val intent = Intent(this, AddReminderActivity::class.java)
             startActivity(intent)
+        }
+
+        // Tambahkan fungsi untuk tombol navigasi
+        val navHome = findViewById<ImageView>(R.id.navHome)
+        val navNotes = findViewById<ImageView>(R.id.navNotes)
+
+        // Klik navHome untuk ke HomeActivity
+        navHome.setOnClickListener {
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
+            finish() // Optional: Tutup ReminderActivity setelah berpindah
+        }
+
+        // Klik navNotes untuk ke CardActivity
+        navNotes.setOnClickListener {
+            val intent = Intent(this, CardActivity::class.java)
+            startActivity(intent)
+            finish() // Optional: Tutup ReminderActivity setelah berpindah
         }
     }
 

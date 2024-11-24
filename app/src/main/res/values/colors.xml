@@ -29,6 +29,11 @@
         <color name="colorButtonNormal">#3F51B5</color> <!-- Warna default -->
         <color name="colorButtonPressed">#303F9F</color> <!-- Warna saat ditekan -->
 
+    <!-- Chart -->
+    <color name="blue">#80B2E6</color> <!-- Line color -->
+    <color name="light_gray">#D3D3D3</color> <!-- Gridline color -->
+    <color name="transparent">#00FFFFFF</color>
+
 
 
 </resources>

@@ -262,7 +262,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/calorieTaken"
+                android:id="@+id/calorieProgressOnCard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -283,7 +283,7 @@
                 android:text="/ Kcol"
                 android:textStyle="bold"
                 android:textSize="25sp"
-                app:layout_constraintStart_toEndOf="@+id/calorieTaken"
+                app:layout_constraintStart_toEndOf="@+id/calorieProgressOnCard"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <TextView
@@ -303,11 +303,13 @@
                 android:id="@+id/imageView3"
                 android:layout_width="164dp"
                 android:layout_height="118dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="4dp"
                 android:contentDescription="Calories icon"
                 android:src="@drawable/kalori"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.851"
+                app:layout_constraintStart_toEndOf="@+id/KCol"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.488" />
 

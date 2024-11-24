@@ -108,16 +108,14 @@
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
-        android:layout_width="419dp"
-        android:layout_height="250dp"
+        android:layout_width="365dp"
+        android:layout_height="227dp"
         android:layout_margin="16dp"
-        android:layout_marginTop="76dp"
         app:layout_constraintBottom_toTopOf="@+id/reminderCard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.655"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/greetingText"
-        app:layout_constraintVertical_bias="0.789" />
+        app:layout_constraintTop_toBottomOf="@+id/healthMetricsRadioGroup" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/reminderCard"

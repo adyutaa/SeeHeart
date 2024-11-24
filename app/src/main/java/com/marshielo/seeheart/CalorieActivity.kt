@@ -12,6 +12,7 @@ import com.marshielo.seeheart.R
 import com.marshielo.seeheart.data.database.AppDatabase
 import com.marshielo.seeheart.data.database.SavedFoodEntity
 import com.marshielo.seeheart.ui.adapter.FoodHistoryAdapter
+import com.mikhaellopez.circularprogressbar.CircularProgressBar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -25,6 +26,7 @@ class CalorieActivity : AppCompatActivity() {
     private val historyList = mutableListOf<SavedFoodEntity>()
     private var currentCalorieIntake = 0
     private val dailyTarget = 2300
+    private lateinit var calorieProgressBar: CircularProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,6 +35,7 @@ class CalorieActivity : AppCompatActivity() {
         val calorieCount = findViewById<TextView>(R.id.calorieCount)
         val recyclerView = findViewById<RecyclerView>(R.id.rvFoodHistory)
         val addFoodButton = findViewById<TextView>(R.id.tvAddFood)
+        calorieProgressBar = findViewById(R.id.calorieProgress)
 
         // Navigate to AddFoodActivity
         addFoodButton.setOnClickListener {
@@ -52,6 +55,11 @@ class CalorieActivity : AppCompatActivity() {
         database = AppDatabase.getDatabase(this)
 
         // Load today's food history
+        loadDailyData()
+    }
+
+    override fun onResume() {
+        super.onResume()
         loadDailyData()
     }
 
@@ -98,5 +106,16 @@ class CalorieActivity : AppCompatActivity() {
     private fun getCurrentDate(): String {
         val sdf = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
         return sdf.format(Date())
+    }
+
+    private fun updateCalorieUI() {
+        val calorieCountTextView = findViewById<TextView>(R.id.calorieCount)
+        calorieCountTextView.text = "$currentCalorieIntake Kcal"
+
+        // Calculate the progress percentage
+        val progressPercentage = (currentCalorieIntake.toFloat() / dailyTarget) * 100
+
+        // Animate the CircularProgressBar
+        calorieProgressBar.setProgressWithAnimation(progressPercentage.coerceAtMost(100f), 1500) // 1500ms animation duration
     }
 }

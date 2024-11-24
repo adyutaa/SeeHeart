@@ -16,20 +16,33 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
 import com.mikhaellopez.circularprogressbar.CircularProgressBar
-import androidx.core.content.ContextCompat
-import com.marshielo.seeheart.ui.AddFoodActivity
+import com.marshielo.seeheart.data.database.AppDatabase
+import com.marshielo.seeheart.ui.CalorieActivity
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class CardActivity : AppCompatActivity(), SensorEventListener {
 
+    // Sensor variables
     private var sensor: Sensor? = null
     private var sensorManager: SensorManager? = null
-    private var initialStepCount: Float = -1f // To track the first step count value
+    private var initialStepCount: Float = -1f // Tracks the initial step count value
     private val ACTIVITY_RECOGNITION_REQUEST_CODE = 100
 
-    // Variabel untuk Water Intake
+    // Water intake tracking
     private lateinit var waterCircularProgressBar: CircularProgressBar
     private lateinit var waterProgressValue: TextView
-    private val dailyWaterTarget = 3000 // Target harian dalam ml
+    private val dailyWaterTarget = 3000 // Daily water goal in ml
+
+    // Step tracking
+    private lateinit var stepsProgressValue: TextView
+    private val dailyStepsTarget = 10000 // Daily step goal
+
+    // Calorie tracking
+    private lateinit var calorieProgressValue: TextView
+    private lateinit var database: AppDatabase // Room Database
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,149 +51,151 @@ class CardActivity : AppCompatActivity(), SensorEventListener {
 
         supportActionBar?.hide()
 
-        // Inisialisasi Sensor Langkah
+        // Initialize sensor for step counting
         sensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
         sensor = sensorManager?.getDefaultSensor(Sensor.TYPE_STEP_COUNTER)
 
-        // Cari CardView dengan id water_card
+        // Initialize Room Database
+        database = AppDatabase.getDatabase(this)
+
+        // Find views
         val waterCard = findViewById<CardView>(R.id.water_card)
         val calorieCard = findViewById<CardView>(R.id.calories_card)
-        // Set active state for CardActivity
         val navHome = findViewById<ImageView>(R.id.navHome)
         val navReminder = findViewById<ImageView>(R.id.navReminder)
         val navNotes = findViewById<ImageView>(R.id.navNotes)
-
-
-        // Cari CircularProgressBar dan TextView di dalam water_card
         waterCircularProgressBar = waterCard.findViewById(R.id.waterCircularProgressBar)
         waterProgressValue = waterCard.findViewById(R.id.waterProgressValue)
+        stepsProgressValue = findViewById(R.id.stepsTaken)
+        calorieProgressValue = findViewById(R.id.calorieProgressOnCard)
 
-        // Set onClickListener pada water_card
+        // Water card navigation
         waterCard.setOnClickListener {
-            // Pindah ke WaterActivity
             val intent = Intent(this, WaterActivity::class.java)
             startActivity(intent)
         }
 
-        // navigate ke CalorieActivity
-        calorieCard.setOnClickListener{
-            val intent = Intent(this, AddFoodActivity::class.java)
+        // Calorie card navigation
+        calorieCard.setOnClickListener {
+            val intent = Intent(this, CalorieActivity::class.java)
             startActivity(intent)
         }
 
-        // Inisialisasi tampilan Water Intake
-        initializeWaterIntake()
-
-        // Navigasi ke HomeActivity
+        // Bottom navigation
         navHome.setOnClickListener {
             val intent = Intent(this, HomeActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(0, 0) // Hilangkan animasi transisi
+            overridePendingTransition(0, 0)
         }
 
-        // Navigasi ke ReminderActivity
         navReminder.setOnClickListener {
             val intent = Intent(this, ReminderActivity::class.java)
             startActivity(intent)
-            overridePendingTransition(0, 0) // Hilangkan animasi transisi
+            overridePendingTransition(0, 0)
         }
 
-
-
-        // Navigasi ke Notes (CardActivity, tetap di sini)
         navNotes.setOnClickListener {
             Toast.makeText(this, "You're already here!", Toast.LENGTH_SHORT).show()
         }
-    }
 
+        // Initialize water intake UI
+        initializeWaterIntake()
 
-
-    private fun initializeWaterIntake() {
-        // Set max progress untuk CircularProgressBar
-        waterCircularProgressBar.progressMax = dailyWaterTarget.toFloat()
-
-        // Update tampilan awal
-        updateWaterProgress()
+        // Fetch calorie data
+        fetchTotalCalories()
     }
 
     override fun onResume() {
         super.onResume()
+
+        // Register sensor listener
         if (sensor == null) {
-            Toast.makeText(this, "Sensor tidak ditemukan", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Sensor not found", Toast.LENGTH_SHORT).show()
         } else {
             sensorManager?.registerListener(this, sensor, SensorManager.SENSOR_DELAY_NORMAL)
         }
 
-        // Update Water Progress setiap kali activity resume
+        // Update water and calorie progress on resume
         updateWaterProgress()
+        fetchTotalCalories()
     }
 
     override fun onPause() {
         super.onPause()
-        // Unregister the sensor listener
+
+        // Unregister sensor listener
         sensorManager?.unregisterListener(this)
     }
 
     override fun onSensorChanged(event: SensorEvent?) {
         if (event != null) {
-            val sensorCardText = findViewById<TextView>(R.id.stepsTaken)
+            // Handle step counting
             initialStepCount = getSavedInitialStepCount()
             if (initialStepCount == -1f) {
-                // Save the first step count as the initial value
                 initialStepCount = event.values[0]
                 saveInitialStepCount(initialStepCount)
             }
-            // Calculate the steps taken in this session
             val stepsTaken = (event.values[0] - initialStepCount).toInt()
-            sensorCardText.text = "Steps: $stepsTaken"
+            stepsProgressValue.text = "$stepsTaken steps"
         }
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
-        // Log perubahan akurasi sensor
         Log.d("PedoSensor", "Sensor accuracy changed: $accuracy")
     }
 
-    // Fungsi untuk menyimpan initial step count
-    private fun saveInitialStepCount(value: Float) {
-        val sharedPreferences = getSharedPreferences("StepCounterPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putFloat("initialStepCount", value)
-        editor.apply()
+    private fun initializeWaterIntake() {
+        // Set max progress for water circular progress bar
+        waterCircularProgressBar.progressMax = dailyWaterTarget.toFloat()
+
+        // Update initial water progress
+        updateWaterProgress()
     }
 
-    // Fungsi untuk mengambil initial step count
-    private fun getSavedInitialStepCount(): Float {
-        val sharedPreferences = getSharedPreferences("StepCounterPrefs", Context.MODE_PRIVATE)
-        return sharedPreferences.getFloat("initialStepCount", -1f)
-    }
-
-    // Fungsi untuk memperbarui tampilan Water Progress
     private fun updateWaterProgress() {
-        // Ambil data asupan air dari SharedPreferences
+        // Retrieve current water intake from SharedPreferences
         val sharedPreferences: SharedPreferences = getSharedPreferences("WaterPrefs", Context.MODE_PRIVATE)
         val currentWaterIntake = sharedPreferences.getInt("currentWaterIntake", 0)
 
-        // Hitung persentase
+        // Calculate percentage
         val percentage = if (dailyWaterTarget > 0) {
             (currentWaterIntake.toFloat() / dailyWaterTarget) * 100
         } else {
             0f
         }
 
-        // Batasi persentase hingga 100%
+        // Cap percentage at 100%
         val displayPercentage = if (percentage > 100f) 100f else percentage
 
-        // Update CircularProgressBar
+        // Update CircularProgressBar and TextViews
         waterCircularProgressBar.setProgressWithAnimation(currentWaterIntake.toFloat(), 1000)
-
-        // Update TextView untuk persen
         waterProgressValue.text = "${displayPercentage.toInt()}%"
-
-        // Update TextView untuk jumlah air (dalam ml)
         val waterAmountTextView = findViewById<TextView>(R.id.tvWaterAmount)
         waterAmountTextView.text = "$currentWaterIntake ml"
     }
 
+    private fun fetchTotalCalories() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                // Query total calories from the database
+                val totalCalories = database.savedFoodDao().getAllSavedFood().sumOf { it.calories.toInt() }
+                withContext(Dispatchers.Main) {
+                    // Update calorie progress value
+                    calorieProgressValue.text = "$totalCalories Kcal"
+                }
+            } catch (e: Exception) {
+                Log.e("CardActivity", "Error fetching calories: ${e.message}")
+            }
+        }
+    }
 
+    private fun saveInitialStepCount(value: Float) {
+        val sharedPreferences = getSharedPreferences("StepCounterPrefs", Context.MODE_PRIVATE)
+        sharedPreferences.edit().putFloat("initialStepCount", value).apply()
+    }
+
+    private fun getSavedInitialStepCount(): Float {
+        val sharedPreferences = getSharedPreferences("StepCounterPrefs", Context.MODE_PRIVATE)
+        return sharedPreferences.getFloat("initialStepCount", -1f)
+    }
 }

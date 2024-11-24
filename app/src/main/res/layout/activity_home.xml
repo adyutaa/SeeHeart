@@ -13,6 +13,10 @@
     <!--        tools:layout_editor_absoluteY="229dp">-->
 
     <!--Greeting-->
+
+    <!--Health Trend-->
+    <!--Radio Button-->
+
     <TextView
         android:id="@+id/greetingText"
         android:layout_width="wrap_content"
@@ -25,12 +29,13 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/healthMetricsRadioGroup"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintHorizontal_bias="0.077"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--Health Trend-->
-    <!--Radio Button-->
+
+    <!--Reminder Card-->
+
     <RadioGroup
         android:id="@+id/healthMetricsRadioGroup"
         android:layout_width="wrap_content"
@@ -40,7 +45,7 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@id/lineChart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
+        app:layout_constraintHorizontal_bias="0.084"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/greetingText"
         app:layout_constraintVertical_bias="0.03">
@@ -105,9 +110,6 @@
             android:textStyle="bold" />
     </RadioGroup>
 
-
-    <!--Reminder Card-->
-
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
         android:layout_width="419dp"
@@ -118,8 +120,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.655"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/healthMetricsRadioGroup"
-        app:layout_constraintVertical_bias="0.789" />
+        app:layout_constraintTop_toBottomOf="@+id/healthMetricsRadioGroup" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/reminderCard"
@@ -378,7 +379,6 @@
         android:background="@drawable/nav_bar_background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tipsCard2"
         app:layout_constraintVertical_bias="1.0">

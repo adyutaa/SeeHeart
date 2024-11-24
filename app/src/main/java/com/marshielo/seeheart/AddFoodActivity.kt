@@ -47,6 +47,8 @@ class AddFoodActivity : AppCompatActivity() {
 
         // Setup SearchView functionality
         setupSearchView()
+
+        autoFetchFoodData("Last night I ate grilled chicken breast 200g, steamed broccoli 150g, mashed potatoes 250g, and drank orange juice 300ml. For a snack, I had a chocolate chip cookie 50g.")
     }
 
     private fun setupRecyclerView() {
@@ -109,6 +111,12 @@ class AddFoodActivity : AppCompatActivity() {
                 isLoading = false
             }
         }
+    }
+
+    private fun autoFetchFoodData(query: String) {
+        // Automatically fetch food data for a predefined query
+        lastQuery = query
+        fetchFoodData(query)
     }
 
 

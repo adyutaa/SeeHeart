@@ -28,13 +28,16 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     kotlinOptions {
         jvmTarget = "11"
     }
+
     buildFeatures {
         compose = true
         viewBinding = true
@@ -42,24 +45,31 @@ android {
 }
 
 dependencies {
-    val room_version = "2.6.1"
+    // Play Services for Activity Recognition
     implementation("com.google.android.gms:play-services-location:21.3.0")
+
+    // Retrofit for API calls and JSON parsing
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0") // For JSON parsing
-    implementation("androidx.room:room-runtime:$room_version")
-    ksp("androidx.room:room-compiler:$room_version")
-    implementation("androidx.room:room-ktx:$room_version")
-    implementation("androidx.room:room-runtime:$room_version")
-    ksp("androidx.room:room-compiler:$room_version") // Use KSP for Room
-    implementation ("com.github.PhilJay:MPAndroidChart:v3.1.0")
-    implementation("androidx.room:room-ktx:$room_version")
-    implementation("androidx.compose.material3:material3:1.3.1")
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
-    implementation("com.mikhaellopez:circularprogressbar:3.1.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.google.code.gson:gson:2.10")
-    implementation ("com.github.lzyzsd:circleprogress:1.2.1") // Jika Anda menggunakan CircularProgressBar
+    implementation(libs.androidx.activity)
 
+    // Room Database with KSP for annotation processing
+    val room_version = "2.6.1"
+    implementation("androidx.room:room-runtime:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+    ksp("androidx.room:room-compiler:$room_version")
+
+    // Circular Progress Bar Libraries
+    implementation("com.mikhaellopez:circularprogressbar:3.1.0")
+    implementation("com.github.lzyzsd:circleprogress:1.2.1")
+
+    // MPAndroidChart for data visualization
+    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    // Jetpack Compose
+    implementation("androidx.compose.material3:material3:1.3.1")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -67,18 +77,25 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
+
+    // Material Design
     implementation(libs.androidx.material3)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
+
+    // ViewBinding and Navigation
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
+
+    // Testing
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.ui.test.junit4)
+
+    // Debugging Tools
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 }

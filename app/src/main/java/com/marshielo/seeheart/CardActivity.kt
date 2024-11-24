@@ -22,6 +22,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.LocalTime
 
 class CardActivity : AppCompatActivity(), SensorEventListener {
 
@@ -61,6 +64,7 @@ class CardActivity : AppCompatActivity(), SensorEventListener {
         // Find views
         val waterCard = findViewById<CardView>(R.id.water_card)
         val calorieCard = findViewById<CardView>(R.id.calories_card)
+        val sleepCard = findViewById<CardView>(R.id.sleep_card)
         val navHome = findViewById<ImageView>(R.id.navHome)
         val navReminder = findViewById<ImageView>(R.id.navReminder)
         val navNotes = findViewById<ImageView>(R.id.navNotes)
@@ -78,6 +82,12 @@ class CardActivity : AppCompatActivity(), SensorEventListener {
         // Calorie card navigation
         calorieCard.setOnClickListener {
             val intent = Intent(this, CalorieActivity::class.java)
+            startActivity(intent)
+        }
+
+        // Sleep Card Nav
+        sleepCard.setOnClickListener{
+            val intent = Intent(this, SleepActivity::class.java)
             startActivity(intent)
         }
 
@@ -118,11 +128,11 @@ class CardActivity : AppCompatActivity(), SensorEventListener {
         // Update water and calorie progress on resume
         updateWaterProgress()
         fetchTotalCalories()
+        updateTodaySleepHours()
     }
 
     override fun onPause() {
         super.onPause()
-
         // Unregister sensor listener
         sensorManager?.unregisterListener(this)
     }
@@ -185,6 +195,43 @@ class CardActivity : AppCompatActivity(), SensorEventListener {
                 }
             } catch (e: Exception) {
                 Log.e("CardActivity", "Error fetching calories: ${e.message}")
+            }
+        }
+    }
+
+    private fun updateTodaySleepHours() {
+        val db = AppDatabase.getDatabase(this)
+        val sleepDataDao = db.sleepDataDao()
+
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val today = LocalDate.now()
+                val sleepDataList = sleepDataDao.getAllSleepData() // Fetch all sleep data from database
+
+                // Calculate today's total sleep hours
+                val totalSleepHoursToday = sleepDataList.filter { sleepData ->
+                    val sleepStart = sleepData.startTime
+                    val sleepEnd = sleepData.endTime
+
+                    // Check if the sleep overlaps with today
+                    val todayStart = LocalDateTime.of(today, LocalTime.MIN)
+                    val todayEnd = LocalDateTime.of(today, LocalTime.MAX)
+
+                    sleepStart.isBefore(todayEnd) && sleepEnd.isAfter(todayStart) // Overlap condition
+                }.sumOf { sleepData ->
+                    val sleepStart = maxOf(sleepData.startTime, LocalDateTime.of(today, LocalTime.MIN))
+                    val sleepEnd = minOf(sleepData.endTime, LocalDateTime.of(today, LocalTime.MAX))
+                    java.time.Duration.between(sleepStart, sleepEnd).toMinutes() / 60.0 // Convert to hours
+                }
+
+                withContext(Dispatchers.Main) {
+                    // Find the TextView where today's sleep hours are displayed
+                    val sleepHoursTodayTextView = findViewById<TextView>(R.id.tvSleepTime) // Make sure the ID matches
+                    sleepHoursTodayTextView.text = "%.1f hours".format(totalSleepHoursToday)
+
+                }
+            } catch (e: Exception) {
+                Log.e("CardActivity", "Error fetching today's sleep hours: ${e.message}")
             }
         }
     }

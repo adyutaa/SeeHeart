@@ -268,22 +268,10 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:text="0"
-                android:textStyle="bold"
-                android:textSize="25sp"
                 android:textColor="@color/secondary"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-            <TextView
-                android:id="@+id/KCol"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="72dp"
-                android:layout_marginTop="12dp"
-                android:text="/ Kcol"
-                android:textStyle="bold"
                 android:textSize="25sp"
-                app:layout_constraintStart_toEndOf="@+id/calorieProgressOnCard"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <TextView
@@ -291,13 +279,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:layout_marginBottom="20dp"
                 android:text="/ 2300 Kcol"
                 android:textColor="@color/gray"
                 android:textSize="15sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/KCol"
-                app:layout_constraintVertical_bias="0.382" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <ImageView
                 android:id="@+id/imageView3"
@@ -308,8 +295,8 @@
                 android:src="@drawable/kalori"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.851"
-                app:layout_constraintStart_toEndOf="@+id/KCol"
+                app:layout_constraintHorizontal_bias="0.899"
+                app:layout_constraintStart_toEndOf="@+id/calorieProgressOnCard"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.488" />
 
@@ -367,20 +354,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvSleep" />
 
             <TextView
-                android:id="@+id/tvHour"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:fontFamily=""
-                android:text="hours"
-                android:textStyle="bold"
-                android:textSize="25sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/tvSleepTime"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.472" />
-
-            <TextView
                 android:id="@+id/tvSleepTarget"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -404,16 +377,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.488" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:text="Slightly better than Yesterday"
-                android:textSize="6sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvSleepTarget"
-                app:layout_constraintVertical_bias="0.391" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

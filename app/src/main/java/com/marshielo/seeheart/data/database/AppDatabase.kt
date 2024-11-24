@@ -1,16 +1,18 @@
 package com.marshielo.seeheart.data.database
 
-
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 
-@Database(entities = [SavedFoodEntity::class, WaterIntakeEntity::class], version = 2)
+@Database(entities = [SavedFoodEntity::class, WaterIntakeEntity::class, SleepDataEntity::class], version = 2)
+@TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun waterDao(): WaterDao
     abstract fun savedFoodDao(): SavedFoodDao
+    abstract fun sleepDataDao(): SleepDataDao
 
     companion object {
         @Volatile
@@ -22,7 +24,9 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "seeheart_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 instance
             }

@@ -1,108 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4A628A"> <!-- Darker blue background -->
-
-    <!-- App Title -->
-
-    <!-- Subtitle -->
-
-    <!-- Description -->
-
-    <!-- Illustration -->
+    android:background="#4A628A">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="950dp"
-        android:layout_height="1000dp"
-        app:srcCompat="@drawable/ellipse"
-        tools:layout_editor_absoluteX="-162dp"
-        tools:layout_editor_absoluteY="298dp" />
+        android:id="@+id/logoImageView"
+        android:layout_width="300dp"
+        android:layout_height="196dp"
+        android:src="@drawable/seeheartfix"
+        android:layout_centerInParent="true" />
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/appNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="68dp"
         android:text="See Heart"
-        android:textColor="#FFFFFF"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.101"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tvSubtitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="is a"
-        android:textColor="#FFFFFF"
-        android:textSize="36sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.073"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
-
-    <TextView
-        android:id="@+id/tvWellness"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="Wellness Planner"
         android:textColor="#D4F6FF"
-        android:textSize="42sp"
+        android:textSize="36sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.25"
-        app:layout_constraintStart_toEndOf="@+id/tvSubtitle"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle" />
+        android:layout_below="@id/logoImageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp" />
 
-    <!-- Replace with actual drawable -->
-
-    <!-- Footer Text -->
-
-    <TextView
-        android:id="@+id/tvDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Bring health and balance into your everyday life"
-        android:textColor="#AFA8A8"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.254"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvSubtitle" />
-
-    <ImageView
-        android:id="@+id/ivIllustration"
-        android:layout_width="340dp"
-        android:layout_height="392dp"
-        android:layout_marginTop="56dp"
-        android:contentDescription="Illustration"
-        android:src="@drawable/splash"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvDescription" />
-
-    <TextView
-        android:id="@+id/tvFooter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
-        android:text="Get started in just one minute—no account needed."
-        android:textColor="#D1D1D1"
-        android:textSize="14sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

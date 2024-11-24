@@ -8,8 +8,27 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
+    <!-- Warna utama -->
+    <color name="colorPrimary12">#4A6472</color> <!-- Biru utama -->
+    <color name="colorPrimaryVariant12">#34515E</color> <!-- Biru lebih gelap -->
+    <color name="colorOnPrimary12">#FFFFFF</color> <!-- Teks putih -->
 
-        <!-- Light Theme Colors -->
+    <!-- Warna latar -->
+    <color name="colorBackground12">#F8F9FA</color> <!-- Putih -->
+    <color name="splashbackground12">#4A6472</color> <!-- Biru gelap untuk splash -->
+
+    <!-- Warna teks -->
+    <color name="textPrimary12">#FFFFFF</color> <!-- Teks putih -->
+    <color name="textSecondary12">#D6D6D6</color> <!-- Teks abu-abu terang -->
+    <color name="black12">#000000</color>
+
+    <!-- Warna tombol -->
+    <color name="buttonBackground12">#4A6472</color> <!-- Tombol biru -->
+    <color name="buttonText12">#FFFFFF</color> <!-- Teks di atas tombol -->
+
+
+
+    <!-- Light Theme Colors -->
         <color name="primary">#B9E5E8</color> <!-- LightBlue1 -->
         <color name="secondary">#7AB2D3</color> <!-- Blue1 -->
         <color name="background">#DFF2EB</color> <!-- LightGreen -->

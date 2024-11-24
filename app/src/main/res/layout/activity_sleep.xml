@@ -105,7 +105,7 @@
                     android:layout_height="80dp"
                     android:layout_gravity="center"
                     android:contentDescription="Moon Icon"
-                    android:src="@drawable/moon" />
+                    android:src="@drawable/drop" />
             </FrameLayout>
 
             <!-- TextView to Show Sleep Progress -->
